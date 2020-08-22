@@ -47,7 +47,6 @@ This process involves 4 steps and therefore coined the term FLIP:
 ---
 
 CODEEXAMPLE
-https://codesandbox.io/s/flamboyant-babbage-5ssln
 
 ---
 
