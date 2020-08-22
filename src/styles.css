@@ -51,6 +51,7 @@
 .smartphone::after {
 	content: "";
 	position: absolute;
+	z-index: 3;
 	height: 3rem;
 	width: 100%;
 	bottom: 0;
@@ -204,6 +205,7 @@
 	width: 100%;
 	padding-top: 100%;
 	position: relative;
+	transform-origin: left top;
 }
 
 .preview__image,
@@ -239,20 +241,19 @@
 .active .story__content {
 	display: grid;
 	position: absolute;
-	overflow: scroll;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
+	overflow-y: scroll;
 	z-index: 2;
-	background-color: whitesmoke;
+	top: 0;
+	left: 0;
+	right: 0;
+	background-color: white;
 	grid-gap: 1rem;
-	transform-origin: left top;
+	padding-bottom: 5rem;
 }
 
 .story__content::-webkit-scrollbar {
 	width: 0;
-	background: transparent; /* make scrollbar transparent */
+	background: transparent;
 }
 
 .story__text,

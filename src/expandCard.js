@@ -1,30 +1,40 @@
 const collapsedCards = document.querySelectorAll(".js-expand-card");
 const expandedCards = document.querySelectorAll(".js-collapse-card");
+const appContainer = document.querySelector(".js-get-scroll-position");
+const transitionTime = 400;
+const easing = "ease-out";
 
+let collapsedCard;
+let collapsedImage;
+let fullscreenCard;
+let fullscreenImage;
 let last;
 let first;
 let widthDifference;
 let heightDifference;
 let xDifference;
 let yDifference;
-let fullscreenCard;
-let collapsedCard;
+let scrollAdjustment = 0;
 
 function expandCard(event) {
 	collapsedCard = event.target.closest(".js-expand-card");
+	collapsedImage = collapsedCard.firstElementChild.firstElementChild;
 
 	// 1. first:
 	//get the dimensions of the card element in its collapsed view
-	first = collapsedCard.getBoundingClientRect();
+	first = collapsedImage.getBoundingClientRect();
 
 	// 2. last:
 	//activate the card to be fullscreen
 	collapsedCard.classList.add("active");
-	fullscreenCard = document.querySelector(".active .story__content");
+	fullscreenCard = document.querySelector(".active .js-collapse-card");
+	fullscreenImage = document.querySelector(".active .story__image-wrapper");
+	//fix for the inner scroll position
+	handleScrollPosition("onOpen");
 
 	//and get its dimensions
-	last = fullscreenCard.getBoundingClientRect();
-	console.log("last", last);
+	last = fullscreenImage.getBoundingClientRect();
+
 	// 3. invert: invert the new layout to look like the old layout
 	widthDifference = first.width / last.width;
 	heightDifference = first.height / last.height;
@@ -34,17 +44,17 @@ function expandCard(event) {
 	// which means scaling the newly fullscreen card back down to fit the size and position of the collapsed view
 	requestAnimationFrame(() => {
 		collapsedCard.classList.add("transitioning");
-		fullscreenCard.style.transform = `translate(${xDifference}px, ${yDifference}px) scale(${widthDifference}, ${heightDifference})`;
-		fullscreenCard.style.transition = "transform 0s";
+		fullscreenImage.style.transform = `translate(${xDifference}px, ${yDifference}px) scale(${widthDifference}, ${heightDifference})`;
+		fullscreenImage.style.transition = "transform 0ms";
 
 		// 4. play: Animate the difference reversal on the next tick
 		requestAnimationFrame(() => {
-			fullscreenCard.style.transform = "";
-			fullscreenCard.style.transition = "transform 400ms ease-in";
+			fullscreenImage.style.transform = "";
+			fullscreenImage.style.transition = `transform ${transitionTime}ms ${easing}`;
 		});
 	});
 
-	collapsedCard.addEventListener(
+	fullscreenImage.addEventListener(
 		"transitionend",
 		() => {
 			collapsedCard.classList.remove("transitioning");
@@ -60,23 +70,48 @@ function shrinkCard(event) {
 	// play the animation on the next tick
 	requestAnimationFrame(() => {
 		collapsedCard.classList.add("transitioning");
-		fullscreenCard.style.transition = "transform 400ms ease-out";
-		fullscreenCard.style.transform = `translate(${xDifference}px, ${yDifference}px) scale(${widthDifference}, ${heightDifference}) `;
+		fullscreenImage.style.transition = `transform ${transitionTime}ms ${easing}`;
+		fullscreenImage.style.transform = `translate(${xDifference}px, ${yDifference}px) scale(${widthDifference}, ${heightDifference}) `;
 	});
 
-	fullscreenCard.addEventListener(
+	fullscreenImage.addEventListener(
 		"transitionend",
 		() => {
 			collapsedCard.classList.remove("transitioning");
 			collapsedCard.classList.remove("active");
 			requestAnimationFrame(() => {
-				fullscreenCard.style.transform = "";
-				fullscreenCard.style.transition = "transform 0s";
+				fullscreenImage.style.transform = "";
+				fullscreenImage.style.transition = "transform 0ms";
+				//fix for the inner scroll position
+				handleScrollPosition("onClose");
 			});
 		},
 		{ once: true }
 	);
 }
+
+// fixes for scroll position
+function adjustCardPositionWhenScrolled(event) {
+	scrollAdjustment = event.target.scrollTop;
+}
+// fixes for scroll position
+function handleScrollPosition(animationState) {
+	if (animationState === "onOpen") {
+		fullscreenCard.style.top = `${scrollAdjustment}px`;
+		fullscreenCard.style.bottom = `-${scrollAdjustment}px`;
+		appContainer.style.overflowY = "hidden";
+	}
+
+	if (animationState === "onClose") {
+		fullscreenCard.style.top = "";
+		fullscreenCard.style.bottom = "";
+		appContainer.style.overflowY = "";
+	}
+}
+// fixes for scroll position
+appContainer.addEventListener("scroll", adjustCardPositionWhenScrolled, {
+	passive: true,
+});
 
 export default function initCardTransition() {
 	collapsedCards.forEach((card) => card.addEventListener("click", expandCard));
