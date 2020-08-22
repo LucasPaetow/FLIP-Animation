@@ -1,82 +1,84 @@
-const cards = document.querySelectorAll(".js-expand-card");
-const expandedCards = document.querySelectorAll(".card__content");
-const parentElement = document.querySelector(".smartphone__app");
+const collapsedCards = document.querySelectorAll(".js-expand-card");
+const expandedCards = document.querySelectorAll(".js-collapse-card");
 
-let parentDimensions;
+let last;
+let first;
 let widthDifference;
 let heightDifference;
 let xDifference;
 let yDifference;
 let fullscreenCard;
+let collapsedCard;
 
 function expandCard(event) {
-  const currentCard = event.target.closest(".js-expand-card");
+	collapsedCard = event.target.closest(".js-expand-card");
 
-  // first: get the dimensions of the button once and store it, so it
-  // doesnt need to be recalculated again
-  let childDimensions = currentCard.getBoundingClientRect();
+	// 1. first:
+	//get the dimensions of the card element in its collapsed view
+	first = collapsedCard.getBoundingClientRect();
 
-  parentDimensions = parentElement.getBoundingClientRect();
+	// 2. last:
+	//activate the card to be fullscreen
+	collapsedCard.classList.add("active");
+	fullscreenCard = document.querySelector(".active .story__content");
 
-  //activate the card to be fullscreen
-  currentCard.classList.add("active");
-  fullscreenCard = document.querySelector(".active .card__content");
-  // invert: invert the new layout to look like the old layout
+	//and get its dimensions
+	last = fullscreenCard.getBoundingClientRect();
+	console.log("last", last);
+	// 3. invert: invert the new layout to look like the old layout
+	widthDifference = first.width / last.width;
+	heightDifference = first.height / last.height;
+	xDifference = first.left - last.left;
+	yDifference = first.top - last.top;
 
-  widthDifference = childDimensions.width / parentDimensions.width;
-  heightDifference = childDimensions.height / parentDimensions.height;
-  xDifference = childDimensions.left - parentDimensions.left;
-  yDifference = childDimensions.top - parentDimensions.top;
+	// which means scaling the newly fullscreen card back down to fit the size and position of the collapsed view
+	requestAnimationFrame(() => {
+		collapsedCard.classList.add("transitioning");
+		fullscreenCard.style.transform = `translate(${xDifference}px, ${yDifference}px) scale(${widthDifference}, ${heightDifference})`;
+		fullscreenCard.style.transition = "transform 0s";
 
-  // scale the new component down to fit the old one
-  requestAnimationFrame(() => {
-    currentCard.classList.add("transitioning");
-    fullscreenCard.style.transform = `translate(${xDifference}px, ${yDifference}px) scale(${widthDifference}, ${heightDifference})`;
-    fullscreenCard.style.transition = "transform 0s";
+		// 4. play: Animate the difference reversal on the next tick
+		requestAnimationFrame(() => {
+			fullscreenCard.style.transform = "";
+			fullscreenCard.style.transition = "transform 400ms ease-in";
+		});
+	});
 
-    // play the animation on the next tick
-    requestAnimationFrame(() => {
-      fullscreenCard.style.transform = "";
-      fullscreenCard.style.transition = "transform 400ms ease-in";
-    });
-  });
-
-  currentCard.addEventListener(
-    "transitionend",
-    () => {
-      currentCard.classList.remove("transitioning");
-    },
-    { once: true }
-  );
+	collapsedCard.addEventListener(
+		"transitionend",
+		() => {
+			collapsedCard.classList.remove("transitioning");
+		},
+		{ once: true }
+	);
 }
 
-// the reverse effect
+// To reverse the  effect, the transform operation needs to be applied again
 function shrinkCard(event) {
-  const currentCard = document.querySelector(".js-expand-card.active");
-  event.stopPropagation();
+	event.stopPropagation();
 
-  // play the animation on the next tick
-  requestAnimationFrame(() => {
-    currentCard.classList.add("transitioning");
-    fullscreenCard.style.transition = "transform 400ms ease-out";
-    fullscreenCard.style.transform = `translate(${xDifference}px, ${yDifference}px) scale(${widthDifference}, ${heightDifference}) `;
-  });
+	// play the animation on the next tick
+	requestAnimationFrame(() => {
+		collapsedCard.classList.add("transitioning");
+		fullscreenCard.style.transition = "transform 400ms ease-out";
+		fullscreenCard.style.transform = `translate(${xDifference}px, ${yDifference}px) scale(${widthDifference}, ${heightDifference}) `;
+	});
 
-  fullscreenCard.addEventListener(
-    "transitionend",
-    () => {
-      currentCard.classList.remove("transitioning");
-      currentCard.classList.remove("active");
-      requestAnimationFrame(() => {
-        fullscreenCard.style.transform = "";
-        fullscreenCard.style.transition = "transform 0s";
-      });
-    },
-    { once: true }
-  );
+	fullscreenCard.addEventListener(
+		"transitionend",
+		() => {
+			collapsedCard.classList.remove("transitioning");
+			collapsedCard.classList.remove("active");
+			requestAnimationFrame(() => {
+				fullscreenCard.style.transform = "";
+				fullscreenCard.style.transition = "transform 0s";
+			});
+		},
+		{ once: true }
+	);
 }
 
 export default function initCardTransition() {
-  cards.forEach((card) => card.addEventListener("click", expandCard));
-  expandedCards.forEach((card) => card.addEventListener("click", shrinkCard));
+	collapsedCards.forEach((card) => card.addEventListener("click", expandCard));
+	expandedCards.forEach((card) => card.addEventListener("click", shrinkCard));
 }

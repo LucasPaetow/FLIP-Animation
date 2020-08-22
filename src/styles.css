@@ -1,202 +1,268 @@
 *,
 ::after,
 ::before {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+		Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+:root {
+	--smartphone-border: hsla(0, 0%, 25%, 1);
+	--app-background: hsla(0, 0%, 100%, 1);
+	--card-background: hsla(0, 0%, 100%, 1);
+	--smartphone-border-radius: 1.8rem;
 }
 
 .background {
-  display: grid;
-  place-items: center;
-  min-height: 100vh;
-  width: 100%;
-  background-color: lightblue;
+	display: grid;
+	place-items: center;
+	min-height: 100vh;
+	width: 100%;
+	background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
 .smartphone {
-  position: relative;
-  display: grid;
-  grid-template-rows: 4.5rem 1fr;
-  width: 375px;
-  height: 812px;
-  border: 0.75rem solid grey;
-  border-radius: 3rem;
-  background-color: white;
+	position: relative;
+	display: grid;
+	grid-template-rows: min-content 1fr;
+	width: 375px;
+	height: 812px;
+	border: 1rem solid var(--smartphone-border);
+	border-radius: 3rem;
+	background-color: var(--app-background);
 }
 
 .smartphone::before {
-  content: "";
-  position: absolute;
-  background-color: grey;
-  width: 12rem;
-  height: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  border-bottom-right-radius: 1.5rem;
-  border-bottom-left-radius: 1.5rem;
-  z-index: 3;
+	content: "";
+	position: absolute;
+	background-color: var(--smartphone-border);
+	width: 12rem;
+	height: 1.5rem;
+	left: 50%;
+	transform: translateX(-50%);
+	border-bottom-right-radius: 1.5rem;
+	border-bottom-left-radius: 1.5rem;
+	z-index: 3;
 }
 
 .smartphone::after {
-  content: "";
-  position: absolute;
-  height: 3rem;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  background: linear-gradient(
-    to bottom,
-    hsla(0, 100%, 100%, 0),
-    hsla(0, 100%, 100%, 1) 70%
-  );
-  border-bottom-right-radius: 2.1rem;
-  border-bottom-left-radius: 2.1rem;
+	content: "";
+	position: absolute;
+	height: 3rem;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	background: linear-gradient(
+		to bottom,
+		hsla(0, 0%, 100%, 0),
+		hsla(0, 0%, 100%, 1) 70%
+	);
+	border-bottom-right-radius: var(--smartphone-border-radius);
+	border-bottom-left-radius: var(--smartphone-border-radius);
 }
 
 .smartphone__navbar {
-  position: relative;
-  background-color: dimgray;
-  border-top-right-radius: 2.1rem;
-  border-top-left-radius: 2.1rem;
-  box-shadow: 0 1px 1px 1px hsla(0, 0%, 0%, 0.1);
-  z-index: 2;
+	display: grid;
+	grid-template-columns: 1rem 3.5rem 12rem 1fr min-content 1.4rem;
+	height: 1.65rem;
+	align-content: center;
+	justify-items: center;
+	border-top-right-radius: var(--smartphone-border-radius);
+	border-top-left-radius: var(--smartphone-border-radius);
+}
+
+.navbar__time {
+	grid-column: 2/3;
+	font-size: 0.8rem;
+}
+
+.navbar__wifi {
+	grid-column: 4/5;
+	width: 1rem;
+}
+
+.navbar__battery {
+	grid-column: 5/6;
+	width: 1.5rem;
+	height: 50%;
+	background-color: black;
+	border-radius: 0.2rem;
+	align-self: center;
 }
 
 .smartphone__app {
-  position: relative;
-  overflow-y: scroll;
-  border-bottom-right-radius: 2.1rem;
-  border-bottom-left-radius: 2.1rem;
+	overflow-y: scroll;
+	border-bottom-right-radius: var(--smartphone-border-radius);
+	border-bottom-left-radius: var(--smartphone-border-radius);
+	display: grid;
+	grid-template-columns: 1rem 1fr 1rem;
+	grid-auto-rows: min-content;
+	grid-row-gap: 1rem;
+	position: relative;
 }
 
 .smartphone__app::-webkit-scrollbar {
-  width: 0;
-  background: transparent; /* make scrollbar transparent */
+	width: 0;
+	background: transparent; /* make scrollbar transparent */
 }
 
-.app__cards-container {
-  display: grid;
-  grid-auto-flow: row;
-  grid-row-gap: 1rem;
-}
+/*app header*/
 
 .app__header {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  margin: 2rem 1.25rem;
+	grid-column: 2/3;
+	border-bottom: 1px solid lightgrey;
+	padding: 1.5rem 0 0.5rem 0;
 }
 
-.app__filter-container {
-  position: relative;
+.header__container {
+	display: flex;
 }
 
-.app__filter-button {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  border-radius: 0.25rem;
-  padding: 0.25rem 1rem;
-  background-color: dimgray;
-  color: white;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-  box-shadow: 0 0 5px 1px hsla(0, 0%, 0%, 0.1);
+.header__heart-icon {
+	width: 1.5rem;
+	margin-right: 0.5rem;
 }
 
-.app__filter {
-  position: absolute;
-  top: 0;
-  right: 0;
-  border-radius: 0.5rem;
-  transform-origin: top right;
-  background-color: dimgray;
-  color: white;
-  box-shadow: 0 0 5px 1px hsla(0, 0%, 0%, 0.1);
+.header__date {
+	color: hsla(0, 0%, 35%, 1);
 }
 
-.app__filter--hidden {
-  display: none;
+.header__date,
+.header__headline {
+	font-size: 2rem;
+	line-height: 100%;
 }
 
-.filter__contact-list {
-  display: flex;
-  flex-direction: column;
+/*app content*/
+
+.app__content {
+	grid-column: 2/3;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: min-content 3.5fr 3fr 1fr 1fr;
+	grid-column-gap: 1rem;
+	grid-row-gap: 1rem;
+	padding-bottom: 5rem;
 }
 
-.filter__headline {
-  padding: 1rem;
-  border-bottom: 2px solid dimgray;
+.app__headline {
+	font-size: 1.75rem;
+	line-height: 100%;
+	color: hsla(348, 98%, 59%, 1);
+	grid-column: 1/3;
+	grid-row: 1/2;
+	margin-top: 0.5rem;
 }
 
-.filter__option {
-  padding: 1rem;
-  border-bottom: 1px solid lightgray;
+.app__story .story__preview {
+	display: grid;
+	grid-row-gap: 0.25rem;
 }
 
-.filter--hidden {
-  opacity: 0;
+/*main story*/
+.app__story--main {
+	grid-column: 1/3;
+	grid-row: 2/3;
 }
 
-.card__preview {
-  display: grid;
-  grid-template-columns: 1rem 1fr 1rem;
-  grid-auto-rows: min-content;
-  grid-row-gap: 1rem;
-  background-color: white;
-  box-shadow: 0 0 5px 1px hsla(0, 0%, 0%, 0.1);
-  cursor: pointer;
-}
-.card__image {
-  grid-column: 1/4;
-  height: 7rem;
-  background-color: lightgray;
+.app__story--main .story__preview {
+	grid-auto-flow: row;
 }
 
-.card__headline,
-.card__subline {
-  grid-column: 2/3;
+/*secondary story*/
+.app__story--secondary .story__preview {
+	grid-template-rows: 12rem min-content min-content;
+	margin: 1rem 0;
 }
 
-.card__subline {
-  padding-bottom: 1rem;
+.app__story--secondary1 {
+	grid-column: 1/2;
+	grid-row: 3/4;
+}
+.app__story--secondary2 {
+	grid-column: 2/3;
+	grid-row: 3/4;
 }
 
-.card__content {
-  display: none;
+/*tertiary story*/
+.app__story--tertiary {
+	grid-column: 1/3;
 }
 
-.active .card__content {
-  display: grid;
-  grid-row-gap: 1rem;
-  grid-template-columns: 1rem 1fr 1rem;
-  grid-auto-rows: min-content;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 5;
-  background-color: white;
-  transform-origin: top left;
+.app__story--tertiary .story__preview {
+	grid-auto-flow: column;
+	grid-template-columns: 1fr 6rem;
+	grid-auto-rows: min-content;
 }
 
-.active .card__content .card__image {
-  height: 10rem;
+/*story preview content*/
+.preview__image-wrapper,
+.story__image-wrapper {
+	width: 100%;
+	padding-top: 100%;
+	position: relative;
 }
 
-.card__full-text {
-  grid-column: 2/3;
+.preview__image,
+.story__image {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 0.2rem;
 }
 
-.transitioning .card__full-text,
-.transitioning .card__subline,
-.transitioning .card__headline {
-  opacity: 0;
+.app__story--tertiary .preview__image-wrapper {
+	grid-column: 2/3;
+	grid-row: 1/4;
+}
+
+.preview__headline,
+.story__headline {
+	line-height: 110%;
+	font-size: 1.5rem;
+}
+
+/*story content*/
+
+.story__content {
+	display: none;
+}
+
+.active .story__content {
+	display: grid;
+	position: absolute;
+	overflow: scroll;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 2;
+	background-color: whitesmoke;
+	grid-gap: 1rem;
+	transform-origin: left top;
+}
+
+.story__content::-webkit-scrollbar {
+	width: 0;
+	background: transparent; /* make scrollbar transparent */
+}
+
+.story__text,
+.story__headline,
+.story__topline {
+	padding: 0 1rem;
+}
+
+.transitioning .story__text,
+.transitioning .story__headline,
+.transitioning .story__topline {
+	opacity: 0;
 }

@@ -1,131 +1,282 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>FLIP Animation</title>
-    <meta charset="UTF-8" />
-  </head>
+	<head>
+		<title>FLIP Animation</title>
+		<meta charset="UTF-8" />
+	</head>
 
-  <body>
-    <!--page setup-->
-    <main class="background">
-      <section class="smartphone">
-        <nav class="smartphone__navbar"></nav>
-        <div class="smartphone__app">
-          <!--App content-->
-          <header class="app__header">
-            <h1 class="app__headline">Your Feed</h1>
-            <div class="app__filter-container">
-              <button class="app__filter-button js-expand-button">
-                filter
-              </button>
-              <div
-                class="app__filter app__filter--hidden js-shrink-contact-list"
-              >
-                <ul
-                  class="filter__contact-list js-hide-during-transition filter--hidden"
-                >
-                  <h4 class="filter__headline">Filter by</h4>
-                  <li class="filter__option">
-                    Recent
-                  </li>
-                  <li class="filter__option">
-                    Most popular
-                  </li>
-                  <li class="filter__option">
-                    Most controversial
-                  </li>
-                  <li class="filter__option">
-                    Saved
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </header>
-          <ul class="app__cards-container">
-            <li class="app__card js-expand-card">
-              <article class="card__preview">
-                <div class="card__image"></div>
-                <h3 class="card__headline">The new something</h3>
-                <a class="card__subline">
-                  read more about it here
-                </a>
-              </article>
+	<body>
+		<!--page setup-->
+		<main class="background">
+			<section class="smartphone">
+				<nav class="smartphone__navbar">
+					<p class="navbar__time">10:45</p>
+					<div class="navbar__wifi">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 28">
+							<path
+								fill="#000000"
+								fill-rule="nonzero"
+								d="M39.68187 7.68C28.60875-2.56188 11.38687-2.55813.31812 7.68c-.41625.385-.42437 1.03688-.02187 1.43625l2.14 2.12312c.38375.38126 1.00125.38938 1.4.02376 9.12-8.355 23.20625-8.35688 32.32813 0 .39874.36562 1.01624.35687 1.4-.02375l2.14-2.12313c.40187-.39938.39375-1.05125-.0225-1.43625zM20 20c-2.20938 0-4 1.79062-4 4s1.79062 4 4 4 4-1.79062 4-4-1.79062-4-4-4zm12.66687-5.22438c-7.20375-6.37062-18.13812-6.36374-25.33375 0-.43124.38125-.445 1.04313-.03562 1.44688L9.45 18.34688c.375.37.97875.395 1.37813.05 5.24687-4.53563 13.10875-4.52563 18.34312 0 .39937.345 1.00313.32062 1.37813-.05l2.1525-2.12438c.41-.40375.39562-1.06625-.035-1.44688z"
+							/>
+						</svg>
+					</div>
+					<div class="navbar__battery"></div>
+				</nav>
+				<div class="smartphone__app">
+					<!--App content-->
+					<header class="app__header">
+						<div class="header__container">
+							<svg
+								class="header__heart-icon"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 27 24"
+							>
+								<path
+									fill="#000000"
+									fill-rule="nonzero"
+									d="M26.34677 4.91832c-.41893-.96246-1.02297-1.83463-1.77833-2.56769-.75593-.73524-1.64718-1.31953-2.6253-1.72109C20.92889.21149 19.84104-.00249 18.74277 0c-1.5408 0-3.0441.41867-4.3505 1.20944-.31253.18917-.60944.39694-.89072.62332-.28129-.22638-.5782-.43415-.89073-.62332C11.30442.41867 9.80112 0 8.26032 0 7.15082 0 6.0757.2109 5.05995.62954c-.98136.40314-1.86583.98304-2.6253 1.7211-.75634.73223-1.36053 1.6046-1.77832 2.56768C.2219 5.91997 0 6.98364 0 8.07832c0 1.03265.21252 2.10873.63445 3.2034.35316.91482.85947 1.86375 1.50642 2.82198 1.02512 1.51643 2.43465 3.09797 4.18485 4.70123 2.90034 2.65762 5.77254 4.49345 5.89443 4.56788l.7407.47136c.32817.20777.7501.20777 1.07826 0l.7407-.47136c.1219-.07753 2.99098-1.91026 5.89443-4.56788 1.7502-1.60326 3.15974-3.1848 4.18486-4.70123.64695-.95823 1.15638-1.90716 1.50642-2.82198C26.78744 10.18705 27 9.11097 27 8.07832c.0031-1.09468-.2188-2.15835-.65323-3.16z"
+								/>
+							</svg>
+							<h1 class="header__headline">News</h1>
+						</div>
+						<h1 class="header__date">21.August</h1>
+					</header>
+					<div class="app__content">
+						<h2 class="app__headline">Top stories</h2>
+						<article class="app__story app__story--main js-expand-card">
+							<div class="story__preview">
+								<div class="preview__image-wrapper">
+									<img
+										class="preview__image"
+										src="/src/assets/jacqueline-munguia-1pAwJiCD60c-unsplash.jpg"
+										alt="happy image"
+									/>
+								</div>
 
-              <article class="card__content">
-                <div class="card__image"></div>
-                <h3 class="card__headline">The new something</h3>
-                <p class="card__full-text">
-                  I'm baby occupy jianbing umami activated charcoal truffaut
-                  readymade. Pork belly typewriter austin beard jean shorts,
-                  crucifix vice neutra fingerstache roof party butcher cronut
-                  microdosing squid XOXO. +1 knausgaard wayfarers hot chicken,
-                  gastropub plaid shaman. Unicorn kickstarter selvage echo park,
-                  offal kitsch flexitarian viral chicharrones. Tilde messenger
-                  bag bushwick, cronut intelligentsia cold-pressed banjo
-                  stumptown edison bulb. Hella fingerstache 90's tacos art party
-                  la croix, viral portland. Listicle single-origin coffee irony
-                  freegan mustache, edison bulb hella tbh.
-                </p>
-              </article>
-            </li>
-            <li class="app__card js-expand-card">
-              <article class="card__preview">
-                <div class="card__image"></div>
-                <h3 class="card__headline">Something different</h3>
-                <a class="card__subline">
-                  read more about it here and the world will look new and
-                  special
-                </a>
-              </article>
+								<p class="preview__topline">CBNice</p>
+								<h3 class="preview__headline">Something awesome happened</h3>
+							</div>
+							<aside class="story__content js-collapse-card">
+								<div class="story__image-wrapper">
+									<img
+										class="story__image"
+										src="/src/assets/jacqueline-munguia-1pAwJiCD60c-unsplash.jpg"
+										alt="happy image"
+									/>
+								</div>
 
-              <article class="card__content">
-                <div class="card__image"></div>
-                <h3 class="card__headline">The new something</h3>
-                <p class="card__full-text">
-                  I'm baby occupy jianbing umami activated charcoal truffaut
-                  readymade. Pork belly typewriter austin beard jean shorts,
-                  crucifix vice neutra fingerstache roof party butcher cronut
-                  microdosing squid XOXO. +1 knausgaard wayfarers hot chicken,
-                  gastropub plaid shaman. Unicorn kickstarter selvage echo park,
-                  offal kitsch flexitarian viral chicharrones. Tilde messenger
-                  bag bushwick, cronut intelligentsia cold-pressed banjo
-                  stumptown edison bulb. Hella fingerstache 90's tacos art party
-                  la croix, viral portland. Listicle single-origin coffee irony
-                  freegan mustache, edison bulb hella tbh.
-                </p>
-              </article>
-            </li>
-            <li class="app__card js-expand-card">
-              <article class="card__preview">
-                <div class="card__image"></div>
-                <h3 class="card__headline">Something also different</h3>
-                <a class="card__subline">
-                  read more about it here and get your mind blown away
-                </a>
-              </article>
-              <article class="card__content">
-                <div class="card__image"></div>
-                <h3 class="card__headline">The new something</h3>
-                <p class="card__full-text">
-                  I'm baby occupy jianbing umami activated charcoal truffaut
-                  readymade. Pork belly typewriter austin beard jean shorts,
-                  crucifix vice neutra fingerstache roof party butcher cronut
-                  microdosing squid XOXO. +1 knausgaard wayfarers hot chicken,
-                  gastropub plaid shaman. Unicorn kickstarter selvage echo park,
-                  offal kitsch flexitarian viral chicharrones. Tilde messenger
-                  bag bushwick, cronut intelligentsia cold-pressed banjo
-                  stumptown edison bulb. Hella fingerstache 90's tacos art party
-                  la croix, viral portland. Listicle single-origin coffee irony
-                  freegan mustache, edison bulb hella tbh.
-                </p>
-              </article>
-            </li>
-          </ul>
-          <!--App content-->
-        </div>
-      </section>
-    </main>
-    <!--/page setup-->
-    <script src="src/index.js"></script>
-  </body>
+								<p class="story__topline">CBNice</p>
+								<h3 class="story__headline">Something awesome happened</h3>
+								<p class="story__text">
+									I'm baby cray messenger bag cardigan etsy vape mumblecore.
+									Gentrify cliche hella gochujang vaporware sriracha whatever
+									hot chicken shaman franzen mumblecore. Vinyl synth meggings,
+									disrupt blue bottle meh squid gentrify cornhole distillery.
+									Cray microdosing 90's plaid kitsch jianbing vegan meditation
+									snackwave ramps crucifix craft beer schlitz waistcoat.
+								</p>
+								<p class="story__text">
+									Try-hard messenger bag small batch organic sriracha lyft.
+									Offal pinterest salvia squid banjo next level tumblr neutra
+									four dollar toast semiotics. Adaptogen four loko semiotics
+									beard, austin 8-bit farm-to-table drinking vinegar. Health
+									goth ennui banh mi food truck green juice vice knausgaard
+									slow-carb. Mixtape slow-carb plaid, food truck asymmetrical
+									pork belly polaroid shaman. Tumblr you probably haven't heard
+									of them franzen direct trade roof party etsy. Live-edge brunch
+									lumbersexual hashtag.
+								</p>
+							</aside>
+						</article>
+						<article
+							class="app__story app__story--secondary app__story--secondary1 js-expand-card"
+						>
+							<div class="story__preview">
+								<div class="preview__image-wrapper">
+									<img
+										class="preview__image"
+										src="/src/assets/arie-wubben-2fr79D9VnxU-unsplash.jpg"
+										alt="happy image"
+									/>
+								</div>
+
+								<p class="preview__topline">Lov-ley times</p>
+								<h3 class="preview__headline">Everthing will be alright</h3>
+							</div>
+							<aside class="story__content js-collapse-card">
+								<div class="story__image-wrapper">
+									<img
+										class="story__image"
+										src="/src/assets/arie-wubben-2fr79D9VnxU-unsplash.jpg"
+										alt="happy image"
+									/>
+								</div>
+
+								<p class="story__topline">CBNice</p>
+								<h3 class="story__headline">Something awesome happened</h3>
+								<p class="story__text">
+									I'm baby cray messenger bag cardigan etsy vape mumblecore.
+									Gentrify cliche hella gochujang vaporware sriracha whatever
+									hot chicken shaman franzen mumblecore. Vinyl synth meggings,
+									disrupt blue bottle meh squid gentrify cornhole distillery.
+									Cray microdosing 90's plaid kitsch jianbing vegan meditation
+									snackwave ramps crucifix craft beer schlitz waistcoat.
+								</p>
+								<p class="story__text">
+									Try-hard messenger bag small batch organic sriracha lyft.
+									Offal pinterest salvia squid banjo next level tumblr neutra
+									four dollar toast semiotics. Adaptogen four loko semiotics
+									beard, austin 8-bit farm-to-table drinking vinegar. Health
+									goth ennui banh mi food truck green juice vice knausgaard
+									slow-carb. Mixtape slow-carb plaid, food truck asymmetrical
+									pork belly polaroid shaman. Tumblr you probably haven't heard
+									of them franzen direct trade roof party etsy. Live-edge brunch
+									lumbersexual hashtag.
+								</p>
+							</aside>
+						</article>
+						<article
+							class="app__story app__story--secondary app__story--secondary2 js-expand-card"
+						>
+							<div class="story__preview">
+								<div class="preview__image-wrapper">
+									<img
+										class="preview__image"
+										src="/src/assets/warren-wong-kMRMcUcO81M-unsplash.jpg"
+										alt="happy image"
+									/>
+								</div>
+								<p class="preview__topline">Fine news</p>
+								<h3 class="preview__headline">You are very fine, indeed!</h3>
+							</div>
+							<aside class="story__content js-collapse-card">
+								<div class="story__image-wrapper">
+									<img
+										class="story__image"
+										src="/src/assets/warren-wong-kMRMcUcO81M-unsplash.jpg"
+										alt="happy image"
+									/>
+								</div>
+
+								<p class="story__topline">CBNice</p>
+								<h3 class="story__headline">Something awesome happened</h3>
+								<p class="story__text">
+									I'm baby cray messenger bag cardigan etsy vape mumblecore.
+									Gentrify cliche hella gochujang vaporware sriracha whatever
+									hot chicken shaman franzen mumblecore. Vinyl synth meggings,
+									disrupt blue bottle meh squid gentrify cornhole distillery.
+									Cray microdosing 90's plaid kitsch jianbing vegan meditation
+									snackwave ramps crucifix craft beer schlitz waistcoat.
+								</p>
+								<p class="story__text">
+									Try-hard messenger bag small batch organic sriracha lyft.
+									Offal pinterest salvia squid banjo next level tumblr neutra
+									four dollar toast semiotics. Adaptogen four loko semiotics
+									beard, austin 8-bit farm-to-table drinking vinegar. Health
+									goth ennui banh mi food truck green juice vice knausgaard
+									slow-carb. Mixtape slow-carb plaid, food truck asymmetrical
+									pork belly polaroid shaman. Tumblr you probably haven't heard
+									of them franzen direct trade roof party etsy. Live-edge brunch
+									lumbersexual hashtag.
+								</p>
+							</aside>
+						</article>
+						<article class="app__story app__story--tertiary js-expand-card">
+							<div class="story__preview">
+								<div class="preview__image-wrapper">
+									<img
+										class="preview__image"
+										src="/src/assets/valmir-dzivielevski-junior-FfDsWm__9nk-unsplash.jpg"
+										alt="happy image"
+									/>
+								</div>
+
+								<p class="preview__topline">Fine news</p>
+								<h3 class="preview__headline">You are very fine, indeed!</h3>
+							</div>
+							<aside class="story__content js-collapse-card">
+								<div class="story__image-wrapper">
+									<img
+										class="story__image"
+										src="/src/assets/valmir-dzivielevski-junior-FfDsWm__9nk-unsplash.jpg"
+										alt="happy image"
+									/>
+								</div>
+
+								<p class="story__topline">CBNice</p>
+								<h3 class="story__headline">Something awesome happened</h3>
+								<p class="story__text">
+									I'm baby cray messenger bag cardigan etsy vape mumblecore.
+									Gentrify cliche hella gochujang vaporware sriracha whatever
+									hot chicken shaman franzen mumblecore. Vinyl synth meggings,
+									disrupt blue bottle meh squid gentrify cornhole distillery.
+									Cray microdosing 90's plaid kitsch jianbing vegan meditation
+									snackwave ramps crucifix craft beer schlitz waistcoat.
+								</p>
+								<p class="story__text">
+									Try-hard messenger bag small batch organic sriracha lyft.
+									Offal pinterest salvia squid banjo next level tumblr neutra
+									four dollar toast semiotics. Adaptogen four loko semiotics
+									beard, austin 8-bit farm-to-table drinking vinegar. Health
+									goth ennui banh mi food truck green juice vice knausgaard
+									slow-carb. Mixtape slow-carb plaid, food truck asymmetrical
+									pork belly polaroid shaman. Tumblr you probably haven't heard
+									of them franzen direct trade roof party etsy. Live-edge brunch
+									lumbersexual hashtag.
+								</p>
+							</aside>
+						</article>
+						<article class="app__story app__story--tertiary js-expand-card">
+							<div class="story__preview">
+								<div class="preview__image-wrapper">
+									<img
+										class="preview__image"
+										src="/src/assets/efe-kurnaz-RnCPiXixooY-unsplash.jpg"
+										alt="happy image"
+									/>
+								</div>
+								<p class="preview__topline">The Star</p>
+								<h3 class="preview__headline">Kindness is the new sexy</h3>
+							</div>
+							<aside class="story__content js-collapse-card">
+								<div class="story__image-wrapper">
+									<img
+										class="story__image"
+										src="/src/assets/efe-kurnaz-RnCPiXixooY-unsplash.jpg"
+										alt="happy image"
+									/>
+								</div>
+
+								<p class="story__topline">CBNice</p>
+								<h3 class="story__headline">Something awesome happened</h3>
+								<p class="story__text">
+									I'm baby cray messenger bag cardigan etsy vape mumblecore.
+									Gentrify cliche hella gochujang vaporware sriracha whatever
+									hot chicken shaman franzen mumblecore. Vinyl synth meggings,
+									disrupt blue bottle meh squid gentrify cornhole distillery.
+									Cray microdosing 90's plaid kitsch jianbing vegan meditation
+									snackwave ramps crucifix craft beer schlitz waistcoat.
+								</p>
+								<p class="story__text">
+									Try-hard messenger bag small batch organic sriracha lyft.
+									Offal pinterest salvia squid banjo next level tumblr neutra
+									four dollar toast semiotics. Adaptogen four loko semiotics
+									beard, austin 8-bit farm-to-table drinking vinegar. Health
+									goth ennui banh mi food truck green juice vice knausgaard
+									slow-carb. Mixtape slow-carb plaid, food truck asymmetrical
+									pork belly polaroid shaman. Tumblr you probably haven't heard
+									of them franzen direct trade roof party etsy. Live-edge brunch
+									lumbersexual hashtag.
+								</p>
+							</aside>
+						</article>
+					</div>
+
+					<!--App content-->
+				</div>
+			</section>
+		</main>
+		<!--/page setup-->
+		<script src="src/index.js"></script>
+	</body>
 </html>
