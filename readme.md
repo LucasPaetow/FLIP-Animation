@@ -77,7 +77,7 @@ In this example, changing the layout is done via modifying the display-property.
 
 	...
   requestAnimationFrame(() => {
-    	fullscreenImage.style.transform = `translate($					{xDifference}px, ${yDifference}px) scale($						{widthDifference}, ${heightDifference})`;
+    	fullscreenImage.style.transform = `translate(${xDifference}px, ${yDifference}px) scale(${widthDifference}, ${heightDifference})`;
     	fullscreenImage.style.transition = "transform 0ms";
 	...
   });
