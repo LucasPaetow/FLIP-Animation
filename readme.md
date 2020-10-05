@@ -20,7 +20,7 @@ There are two ways to make animations feel smooth and keep them at 60 FPS and ja
 Every change to the DOM triggers the calculation of the “critical render path” to bring the pixel updates to the screen. This involves up to 3 steps:
 
 - **Layout / Reflow**
-  In this step, the browser starts calculating the dimensions for each element, starting from the document root. This results in the box-model.
+  In this step, the browser starts calculating the dimensions and space for each element, starting from the document root. This results in the elements [box-model](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model).
 
 - **Paint**
   This step is about creating layers and filling them with pixels. Including but not limited to text, colors, images, borders, and shadows.
@@ -36,7 +36,7 @@ You might think, these transforms may only really work for small visual changes 
 
 Instead of scaling / transitioning / rotating an elements' starting appearance to make it look like the end appearance, (for example scaling up a card to a full-screen view) you would do the opposite: change the card to its final form and scale it down to the previous size without animation. This step happens so fast, it looks like nothing happened. Afterwards, you animate the difference (which is now a scale operation).
 
-This process involves 4 steps and therefore coined the term FLIP:
+This process involves 4 steps and therefore coined the term FLIP (First, Last, Invert, Play - [originaliy by Paul Lewis](https://aerotwist.com/blog/flip-your-animations/)):
 
 #### An Example: Apple News
 
@@ -48,7 +48,7 @@ CODE EXAMPLE
 
 ---
 
-- First: get the dimensions of the starting element
+- **First**: get the dimensions of the starting element
 
 ```
 first = collapsedImage.getBoundingClientRect();
@@ -56,7 +56,7 @@ first = collapsedImage.getBoundingClientRect();
 
 Quick refresher: `getBoundingClientRect()` returns an object of values for height, width, top, right, bottom, left, x and y.
 
-- Last: change the layout and get its dimensions.
+- **Last**: change the layout and get its dimensions.
 
 ```
   collapsedCard.classList.add("active");
@@ -65,9 +65,9 @@ Quick refresher: `getBoundingClientRect()` returns an object of values for heigh
 
 ```
 
-In this example, this is done via the change of the display-property because its a simple yet very visual change, which triggers reflow.
+In this example, changing the layout is done via modifying the display-property. It's a simple yet very visual change, which triggers reflow.
 
-- Invert: Transform the element from it's last form to the starting form
+- **Invert**: Transform the element from it's last form to the starting form
 
 ```
   widthDifference = first.width / last.width;
@@ -86,20 +86,21 @@ In this example, this is done via the change of the display-property because its
 
 On the next possible repaint, the image gets translated and scaled so it is placed over on the starting image. This change happens without a transition and is not visually noticeable (if the calculation for the change takes under 100ms, we will perceive it as instantaneously)
 
-- Play: Visually animate the difference
+- **Play**: Visually animate the difference
 
 ```
   requestAnimationFrame(() => {
 		...
     requestAnimationFrame(() => {
       	fullscreenImage.style.transform = "";
-      	fullscreenImage.style.transition = `transform $				{transitionTime}ms ${easing}`;
+      	fullscreenImage.style.transition = `transform ${transitionTime}ms ${easing}`;
     });
   });
 
 ```
 
-Again, on the next possible repaint, the changes get reverted, but this time with an easing. So it falls back into its original shape with a nice and smooth transition
+Again, on the next possible repaint, the changes get reverted, but this time with an easing. So it falls back into its original shape with a nice and smooth transition.
+This has to be done with at least one frame between the two actions. Otherwise, javascript would just batch the commands together and we wouldn't see any visual effects. For the separation of these commands, we can use a requestAnimationFrame within a requestAnimationFrame. More on this topic will follow soon.
 
 #### Things to consider
 
@@ -108,3 +109,7 @@ Again, on the next possible repaint, the changes get reverted, but this time wit
 For example: a 200x200px box with 'border-radius: 20px' and `transform: scale(0.5)` looks different than a 100x100px box with the same border-radius (percentage based values work, though)
 
 - Beware: since it has to be done for each element, it gets complicated fast, especially if multiple elements are affected (modern frameworks might help reduce the complexity)
+
+### Stay tuned
+
+More on requestAnimationFrame and performant javascript animation will follow next week.
