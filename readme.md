@@ -43,7 +43,7 @@ This process involves 4 steps and therefore coined the term FLIP (First, Last, I
 ---
 
 CODE EXAMPLE
-[CodeSandbox](https://codesandbox.io/s/nice-haze-13r8g) to see the code
+[CodeSandbox](https://codesandbox.io/s/github/LucasPaetow/FLIP-Animation/tree/master) to see the code
 [live site](https://goofy-saha-574aca.netlify.app/) to just see it in action
 
 ---
